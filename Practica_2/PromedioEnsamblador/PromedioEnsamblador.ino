@@ -1,26 +1,29 @@
-int prom=0;
+
 void setup(){
   Serial.begin(9600);
   
 }
 
 void loop (){
+  int prom=0;
   asm volatile(
-  "LDI R22, 70 \n"
-  "LDI R23, 5  \n"
-  "LDI R24, 10 \n"
-  "LDI R25, 15 \n"
-  "LDI R26, 5 \n"
-  "ADD R22, R23 \n"
-  "ADD R22, R24 \n"
-  "ADD R22, R25 \n"
-  "ADD R22, R26 \n"
-  "LDI R25, 5 \n"
-  "lDI R24, 0 \n"
-  "lop: INC R24 \n"
-  "SUB r22,r25 \n"
-  "brpl lop \n"
-  "mov %0, R24 \n"
+  "LDI r16, 70 \n\t"
+  "LDI r17, 5  \n\t"
+  "LDI r18, 10 \n\t"
+  "LDI r19, 15 \n\t"
+  "LDI r20, 5  \n\t"
+  "ADD r16, r17 \n\t"
+  "ADD r16, r18 \n\t"
+  "ADD r16, r19 \n\t"
+  "ADD r16, r20 \n\t"
+  "LDI r17, 5 \n\t"
+  "LDI r18, 0 \n\t"
+  "lop:\n\t"
+  "INC r18 \n\t"
+  "SUB r16,r17 \n\t"
+  "BRNE lop \n\t"
+  "mov r10, r18 \n\t"
+  "mov %0, r10 \n\t"
   : "=r" (prom)
   );
   Serial.println(prom);
