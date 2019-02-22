@@ -12,4 +12,4 @@ void loop(){
   res=b*b-4*a*c;
   Serial.println(res);
   delay(500);
-}sketch_feb01b.cpp.elf
+}

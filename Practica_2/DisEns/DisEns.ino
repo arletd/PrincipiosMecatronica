@@ -24,7 +24,7 @@ void loop(){
   "movw %0, R24 \n"
   : "=r" (res1)
   );
- if (res1=-800){
+ if (res1==-800){
    Serial.println("-800");
  }
  delay(1000);
