@@ -1,0 +1,25 @@
+#include <SoftwareSerial.h>
+SoftwareSerial xbee(10, 11); //RX, TX
+byte inst;
+
+void setup() {
+  xbee.begin(9600);
+  cli();
+  DDRA |= (1 << DDA0) | (1 << DDA1) | (1 << DDA2);
+  DDRD &= ~(1 << DDD1);
+  PORTD |= (1 << PORTD1);
+  EICRA |= (1 << ISC10) | (1 << ISC11);
+  EIMSK |= (1 << INT1);
+  sei();
+}
+
+void loop() {
+  if(xbee.available()>0){
+      inst = xbee.read();
+      PORTA = inst;
+  }
+}
+
+ISR(INT1_vect){
+  xbee.write(0xFF);
+}
